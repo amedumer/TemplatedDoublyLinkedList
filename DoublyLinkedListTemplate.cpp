@@ -135,10 +135,10 @@ const DoublyLinkedList<itemType> & DoublyLinkedList<itemType>::operator = (const
 //each node and connecting them as in the original.
 //Returns the head of the clone list.
 template <class itemType>
-node<itemType> * DoublyLinkedList<itemType>::createClone () const
+pair<node<itemType> *,node<itemType> *> DoublyLinkedList<itemType>::createClone () const
 {
     if (head == NULL)  //if list is empty
-        return NULL;   //clone is empty as well
+        return make_pair(nullptr, nullptr);   //clone is empty as well
     
     //first generate the first clone node and connect to head of clone
     node<itemType> * headClone = new node<itemType> (head->info, NULL,NULL);
@@ -147,7 +147,7 @@ node<itemType> * DoublyLinkedList<itemType>::createClone () const
     
     while (ptr != NULL)
     {
-        ptrClone->next = new node<itemType> (ptr->info, ptrClone, NULL);
+        ptrClone->right = new node<itemType> (ptr->info, ptrClone, NULL);
         ptr = ptr->right;
         ptrClone = ptrClone->right;
     }
@@ -165,6 +165,7 @@ node<itemType> * DoublyLinkedList<itemType>::createClone () const
 
 //    doubly represents the tail
     return make_pair(headClone, doubly);
+//    return pair<headClone, doubly>;
 }
 
 template <class itemType>
@@ -178,6 +179,23 @@ void DoublyLinkedList<itemType>::printListReverse() const{
       
     }
     cout << endl;
+    
+}
+
+template <class itemType>
+DoublyLinkedList< node<itemType> * >  DoublyLinkedList<itemType>::searchElement(const itemType & elem)const{
+    
+    DoublyLinkedList< node<itemType> * > * list = new DoublyLinkedList< node<itemType> * >;
+    
+    node<itemType> * ptr = head;
+    
+    while(ptr != NULL){
+        if(ptr->info == elem)
+            list->addToBeginning(ptr);
+        ptr = ptr->right;
+    }
+    
+    return *list;
     
 }
 

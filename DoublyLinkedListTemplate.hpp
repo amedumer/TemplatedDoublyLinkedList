@@ -43,7 +43,8 @@ public:
     void addToEnd(const itemType& n);
     void deleteList ();
     const DoublyLinkedList& operator = (const DoublyLinkedList& rhs);
-    node<itemType> * createClone () const; //generates the clone of the list and return the clone's head
+	std::pair<node<itemType> *,node<itemType> *>  createClone () const; //generates the clone of the list and return the clone's head
+	DoublyLinkedList< node<itemType> * >  searchElement(const itemType & elem) const; // returns a linked list of pointers with the desired search value
 };
 
 
